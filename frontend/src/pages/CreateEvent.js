@@ -18,8 +18,8 @@ const CreateEvent = () => {
       setError('Please fill in both name and date.');
       return;
     }
-
-    axios.post('http://localhost:5001/api/events', { name, date, location, description })
+    console.log(process.env.REACT_APP_API_URL)
+    axios.post(`${process.env.REACT_APP_API_URL}/api/events`, { name, date, location, description })
       .then(() => {
         setSuccess('Event created successfully!');
         setError(null);
