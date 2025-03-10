@@ -70,55 +70,7 @@ exports.addAttendee = async (req, res) => {
   }
 };
 
-exports.sendReminder = async (req, res) => {
-  const event = await Event.findById(req.params.eventId);
-  if (!event) return res.status(404).json({ message: "Event not found" });
 
-  const transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS,
-    },
-  });
-
-  try {
-    const sendMailPromises = event.attendees.map((attendee) => {
-      const mailOptions = {
-        from: process.env.EMAIL_USER,
-        to: attendee.email,
-        subject: `Reminder for ${event.name}`,
-        text: `Hi ${attendee.name}, this is a reminder for the event: ${event.name}.`,
-      };
-      return transporter.sendMail(mailOptions);
-    });
-
-    await Promise.all(sendMailPromises);
-    res.status(200).json({ message: "Reminders sent" });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-};
-
-exports.searchEvents = async (req, res) => {
-  const { name, date } = req.query;
-  let filter = {};
-
-  if (name) {
-    filter.name = { $regex: name, $options: "i" };
-  }
-
-  if (date) {
-    filter.date = date;
-  }
-
-  try {
-    const events = await Event.find(filter);
-    res.json(events);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-};
 
 exports.deleteEvent = async (req, res) => {
   try {
