@@ -29,7 +29,7 @@ const EventDetails = () => {
 
   const handleRegistration = () => {
     axios
-      .post(`http://localhost:5001/api/events/attendees/${id}`, { name, email })
+      .post(`${API_BASE_URL}/api/events/attendees/${id}`, { name, email })
       .then((response) => {
         alert("You have successfully registered!");
         setName("");
