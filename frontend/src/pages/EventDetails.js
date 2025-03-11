@@ -38,7 +38,7 @@ const EventDetails = () => {
       })
       .catch((e) => {
         console.log(e);
-        alert(e.response.data.message);
+        alert('error registering, double check email format and remember you cant register for same event twice');
       });
   };
 
