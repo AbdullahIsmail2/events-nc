@@ -2,15 +2,18 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
+const API_BASE_URL = process.env.API_BASE_URL || "";
+
 const EventDetails = () => {
   const { id } = useParams();
   const [event, setEvent] = useState(null);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [registered, setRegistered] = useState(false);
+
   useEffect(() => {
     axios
-      .get(`http://localhost:5001/api/events/${id}`)
+      .get(`${API_BASE_URL}/api/events/${id}`)
       .then((response) => setEvent(response.data))
       .catch((error) => console.error(error));
   }, [id]);

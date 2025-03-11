@@ -4,12 +4,14 @@ import axios from "axios";
 import { UserIcon } from "@heroicons/react/24/outline";
 import { useAdminAuth } from "../Contexts/AdminLoggedin";
 
+const API_BASE_URL = process.env.API_BASE_URL || "";
+
 const Navbar = () => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
     axios
-      .get("http://localhost:5001/api/user")
+      .get(`${API_BASE_URL}/api/user`)
       .then((response) => setUser(response.data))
       .catch((error) => console.error(error));
   }, []);

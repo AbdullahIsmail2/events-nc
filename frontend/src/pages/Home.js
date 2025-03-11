@@ -4,6 +4,8 @@ import axios from "axios";
 import { BellIcon } from "@heroicons/react/24/outline";
 import { useAdminAuth } from "../Contexts/AdminLoggedin";
 
+const API_BASE_URL = process.env.API_BASE_URL || "";
+
 const Home = () => {
   const [events, setEvents] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
@@ -18,14 +20,14 @@ const Home = () => {
 
   const fetchEvents = () => {
     axios
-      .get("http://localhost:5001/api/events")
+      .get(`${API_BASE_URL}/api/events/`)
       .then((response) => setEvents(response.data))
       .catch((error) => console.error(error));
   };
 
   const handleDelete = (id) => {
     axios
-      .delete(`http://localhost:5001/api/events/${id}`)
+      .delete(`${API_BASE_URL}/api/events/${id}`)
       .then(() => fetchEvents())
       .catch((error) => console.error(error));
   };
