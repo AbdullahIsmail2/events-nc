@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-const API_BASE_URL = process.env.API_BASE_URL || "";
+const API_BASE_URL = 'https://events-nc.onrender.com'
 
 const CreateEvent = () => {
   const [name, setName] = useState('');

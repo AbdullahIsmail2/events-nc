@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
-const API_BASE_URL = process.env.API_BASE_URL || "";
+const API_BASE_URL = 'https://events-nc.onrender.com'
 
 const EventDetails = () => {
   const { id } = useParams();

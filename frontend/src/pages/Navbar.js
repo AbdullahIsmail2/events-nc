@@ -4,7 +4,7 @@ import axios from "axios";
 import { UserIcon } from "@heroicons/react/24/outline";
 import { useAdminAuth } from "../Contexts/AdminLoggedin";
 
-const API_BASE_URL = process.env.API_BASE_URL || "";
+const API_BASE_URL = 'https://events-nc.onrender.com'
 
 const Navbar = () => {
   const [user, setUser] = useState(null);

@@ -4,7 +4,9 @@ import axios from "axios";
 import { BellIcon } from "@heroicons/react/24/outline";
 import { useAdminAuth } from "../Contexts/AdminLoggedin";
 
-const API_BASE_URL = process.env.API_BASE_URL || "";
+const API_BASE_URL = 'https://events-nc.onrender.com'
+
+console.log(API_BASE_URL)
 
 const Home = () => {
   const [events, setEvents] = useState([]);
@@ -16,11 +18,12 @@ const Home = () => {
 
   useEffect(() => {
     fetchEvents();
+    console.log(API_BASE_URL, 'hiiiiiiiii')
   }, []);
 
   const fetchEvents = () => {
     axios
-      .get(`${API_BASE_URL}/api/events/`)
+      .get(`${API_BASE_URL}/api/events`)
       .then((response) => setEvents(response.data))
       .catch((error) => console.error(error));
   };
