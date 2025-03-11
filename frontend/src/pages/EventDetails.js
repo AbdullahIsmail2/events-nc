@@ -65,11 +65,11 @@ const EventDetails = () => {
   };
 
   return (
-    <div className="container mx-auto p-6 max-w-2xl bg-white shadow-md rounded-lg">
-      <h1 className="text-4xl font-extrabold mb-4 font-satisfy">
+    <div className="container mx-auto p-6 max-w-2xl bg-white shadow-md rounded-lg" role="main">
+      <h1 className="text-4xl font-extrabold mb-4 font-satisfy" id="event-name">
         {event.name}
       </h1>
-      <p className="text-lg text-gray-600 mb-2">
+      <p className="text-lg text-gray-600 mb-2" aria-live="polite">
         {new Date(event.date).toLocaleDateString()}
       </p>
       <p className="text-base font-semibold text-gray-800 mb-4 break-words">
@@ -78,8 +78,10 @@ const EventDetails = () => {
       <p className="text-base text-gray-800 mb-4">
         {`Event location: ${event.location}` || "No location provided"}
       </p>
-      <div className="bg-gray-50 p-4 rounded-lg shadow-md font-semibold">
-        <h2 className="text-2xl font-semibold text-gray-900 mb-4">Attendees</h2>
+      <div className="bg-gray-50 p-4 rounded-lg shadow-md font-semibold" aria-labelledby="attendees-title">
+        <h2 className="text-2xl font-semibold text-gray-900 mb-4" id="attendees-title">
+          Attendees
+        </h2>
         {event.attendees.length > 0 ? (
           <ul className="list-disc pl-5 space-y-2">
             {event.attendees.map((attendee, index) => (
@@ -92,14 +94,14 @@ const EventDetails = () => {
           <p className="text-gray-600">No attendees</p>
         )}
       </div>
-
-      <div class="mt-20 bg-transparent rounded-lg">
-        <h2 class="text-xl font-semibold text-gray-800 mb-4">
+  
+      <div className="mt-20 bg-transparent rounded-lg" aria-labelledby="register-title">
+        <h2 className="text-xl font-semibold text-gray-800 mb-4" id="register-title">
           Register for This Event
         </h2>
-
-        <div class="mb-4">
-          <label for="name" class="block text-sm font-medium text-gray-700">
+  
+        <div className="mb-4">
+          <label htmlFor="name" className="block text-sm font-medium text-gray-700">
             Name
           </label>
           <input
@@ -108,12 +110,16 @@ const EventDetails = () => {
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="Enter your name"
-            class="mt-1 w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+            className="mt-1 w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+            aria-describedby="name-description"
           />
+          <p id="name-description" className="text-sm text-gray-500">
+            Please enter your full name.
+          </p>
         </div>
-
-        <div class="mb-4">
-          <label for="email" class="block text-sm font-medium text-gray-700">
+  
+        <div className="mb-4">
+          <label htmlFor="email" className="block text-sm font-medium text-gray-700">
             Email
           </label>
           <input
@@ -122,28 +128,35 @@ const EventDetails = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Enter your email"
-            class="mt-1 w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+            className="mt-1 w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+            aria-describedby="email-description"
           />
+          <p id="email-description" className="text-sm text-gray-500">
+            We'll never share your email with anyone else.
+          </p>
         </div>
-
+  
         <button
-          class="px-4 py-2 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+          className="px-4 py-2 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
           onClick={handleRegistration}
+          aria-label="Register for the event"
         >
           Register
         </button>
       </div>
-
+  
       {registered && (
         <button
           onClick={() => addToGoogleCalendar(event)}
-          class="mt-10 px-4 py-2 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-300"
+          className="mt-10 px-4 py-2 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-300"
+          aria-label="Add event to Google Calendar"
         >
           Add to Google Calendar
         </button>
       )}
     </div>
   );
+  
 };
 
 export default EventDetails;

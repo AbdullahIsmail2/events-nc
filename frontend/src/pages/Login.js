@@ -1,17 +1,17 @@
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAdminAuth } from '../Contexts/AdminLoggedin';
+import { useAdminAuth } from "../Contexts/AdminLoggedin";
 
 const AdminLoginPage = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  const {isAdmin, loginAdmin, logoutAdmin} = useAdminAuth()
+  const { isAdmin, loginAdmin, logoutAdmin } = useAdminAuth();
 
   const handleLogin = (e) => {
     e.preventDefault();
     if (password === "admin321") {
-      loginAdmin()
+      loginAdmin();
       alert("Correct password!");
       navigate("/"); // Redirect to homepage
     } else {
@@ -22,16 +22,31 @@ const AdminLoginPage = () => {
   return (
     <div className="flex flex-col items-center justify-center min-h-[calc(100vh-6rem)] bg-transparent">
       <div className="bg-white p-6 rounded-lg shadow-lg">
-        <h2 className="text-2xl font-bold mb-4">Admin Login</h2>
-        <form onSubmit={handleLogin} className="space-y-4">
+        <h2 className="text-2xl font-bold mb-4" id="admin-login-heading">
+          Admin Login
+        </h2>
+        <form
+          onSubmit={handleLogin}
+          className="space-y-4"
+          aria-labelledby="admin-login-heading"
+        >
+          <label htmlFor="password" className="sr-only">
+            Admin Password
+          </label>
           <input
             type="password"
+            id="password"
             className="w-full p-2 border rounded-md"
             placeholder="Enter admin password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            aria-describedby="password-error"
           />
-          {error && <p className="text-red-500">{error}</p>}
+          {error && (
+            <p id="password-error" className="text-red-500" role="alert">
+              {error}
+            </p>
+          )}
           <button
             type="submit"
             className="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600"

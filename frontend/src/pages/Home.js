@@ -36,25 +36,31 @@ const Home = () => {
   };
 
   return (
-    <div className="bg-gradient-to-r from-blue-50 via-purple-50 to-pink-50 min-h-screen py-12 px-4 sm:px-6 lg:px-8">
+    <div className="bg-gradient-to-r from-blue-50 via-purple-50 to-pink-50 min-h-screen py-12 px-4 sm:px-6 lg:px-8" role="main">
       <div className="container mx-auto">
-        <h1 className="text-4xl font-extrabold text-gray-900 mb-6">Events</h1>
-
+        <h1 className="text-4xl font-extrabold text-gray-900 mb-6" id="events-title">
+          Events
+        </h1>
+  
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {events.length > 0 ? (
             events.map((event) => (
               <div
                 key={event._id}
                 className="bg-white p-6 shadow-lg rounded-lg hover:shadow-xl transition-shadow duration-300"
+                aria-labelledby={`event-${event._id}`}
               >
-                <h2 className="text-2xl font-semibold text-gray-800 mb-2">
+                <h2 
+                  className="text-2xl font-semibold text-gray-800 mb-2"
+                  id={`event-${event._id}`}
+                >
                   {event.name}
                 </h2>
                 <p className="text-gray-600 mb-4">
                   {new Date(event.date).toLocaleDateString()}
                 </p>
                 <div className="flex gap-4">
-                  <Link to={`/event/${event._id}`}>
+                  <Link to={`/event/${event._id}`} aria-label={`View details of event ${event.name}`}>
                     <button className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition duration-300">
                       View Event
                     </button>
@@ -63,6 +69,7 @@ const Home = () => {
                     <button
                       onClick={() => handleDelete(event._id)}
                       className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition duration-300"
+                      aria-label={`Delete event ${event.name}`}
                     >
                       Delete
                     </button>
@@ -71,12 +78,15 @@ const Home = () => {
               </div>
             ))
           ) : (
-            <p className="mt-10 text-2xl">No events added</p>
+            <p className="mt-10 text-2xl" role="alert">
+              No events added
+            </p>
           )}
         </div>
       </div>
     </div>
   );
+  
 };
 
 export default Home;
