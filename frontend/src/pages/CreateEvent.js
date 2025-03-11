@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
+const API_BASE_URL = process.env.API_BASE_URL || "";
+
 const CreateEvent = () => {
   const [name, setName] = useState('');
   const [date, setDate] = useState('');
@@ -18,8 +20,8 @@ const CreateEvent = () => {
       setError('Please fill in both name and date.');
       return;
     }
-    console.log(process.env.REACT_APP_API_URL)
-    axios.post(`${process.env.REACT_APP_API_URL}/api/events`, { name, date, location, description })
+
+    axios.post(`${API_BASE_URL}/api/events`, { name, date, location, description })
       .then(() => {
         setSuccess('Event created successfully!');
         setError(null);
